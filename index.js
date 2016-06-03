@@ -244,8 +244,10 @@ LE.create = function (defaults, handlers, backend) {
       backend.getConfigAsync(args).then(function (pyobj) {
         cb(null, le.pyToJson(pyobj));
       }, function (err) {
-        console.error("[letsencrypt/index.js] getConfig");
-        console.error(err.stack);
+        if (defaults.debug || args.debug) {
+          console.error("[letsencrypt/index.js] getConfig");
+          console.error(err.stack);          
+        }
         return cb(null, []);
       });
     }
@@ -259,8 +261,10 @@ LE.create = function (defaults, handlers, backend) {
         if ('ENOENT' === err.code) {
           cb(null, []);
         } else {
-          console.error("[letsencrypt/index.js] getConfigs");
-          console.error(err.stack);
+          if (defaults.debug || args.debug) {
+            console.error("[letsencrypt/index.js] getConfigs");
+            console.error(err.stack);
+          }
           cb(err);
         }
       });
@@ -316,7 +320,9 @@ LE.create = function (defaults, handlers, backend) {
             }
 
             // still couldn't read the certs after success... that's weird
-            console.error("still couldn't read certs after success... that's weird");
+            if (defaults.debug || args.debug) {
+              console.error("still couldn't read certs after success... that's weird");
+            }
             cb(err, null);
           });
         });
