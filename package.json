@@ -33,6 +33,7 @@
     "express": "^4.13.3",
     "localhost.daplie.com-certificates": "^1.1.2"
   },
+  "typings": "letsencrypt.d.ts",
   "optionalDependencies": {},
   "dependencies": {
     "bluebird": "^3.0.6",
